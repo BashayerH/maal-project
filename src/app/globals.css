@@ -3,13 +3,19 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --fortress-ink: #0b0d10;
+  --fortress-stone: #0f1116;
+  --clay: #2a2018;
+  --gold: #d6b15d;
+  --garden: #f6f7f8;
+  --garden-green: #8abf9d;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-ar: var(--font-kufi);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +28,34 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-ar), ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Subtle film grain for “material” depth */
+.grain {
+  position: relative;
+}
+.grain::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
+}
+
+/* Utility for Arabic display blocks */
+.font-ar {
+  font-family: var(--font-ar), ui-sans-serif, system-ui;
+  letter-spacing: 0.01em;
+}
+
+.font-en {
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
 }

@@ -1,65 +1,80 @@
-import Image from "next/image";
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import dynamic from "next/dynamic";
+import { useRef } from "react";
+import { HeroSection } from "@/components/HeroSection";
+
+const JourneyPath = dynamic(
+  () => import("@/components/JourneyPath").then((m) => m.JourneyPath),
+  { loading: () => <div className="min-h-[40svh]" /> },
+);
+const GardenSection = dynamic(
+  () => import("@/components/GardenSection").then((m) => m.GardenSection),
+  { loading: () => <div className="min-h-[40svh]" /> },
+);
 
 export default function Home() {
+  const pageRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: pageRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Global, linear material shift: Stone -> Clay -> Marble
+  const bg = useTransform(scrollYProgress, [0, 0.5, 1], ["#1A1A1A", "#D2B48C", "#FFFFFF"]);
+
+  // Global “breathing” container padding (compression -> release)
+  const padX = useTransform(scrollYProgress, [0, 0.7, 1], ["1.25rem", "1.6rem", "2.6rem"]);
+
+  // Typography “الانشراح”: more air as we approach the garden
+  const letterSpacing = useTransform(scrollYProgress, [0, 0.75, 1], ["0.01em", "0.02em", "0.035em"]);
+  const lineHeight = useTransform(scrollYProgress, [0, 0.75, 1], ["1.55", "1.65", "1.8"]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <motion.div
+      ref={pageRef}
+      className="relative min-h-[100svh]"
+      style={{ backgroundColor: bg }}
+    >
+      {/* Global padding + breathing typography (applies site-wide) */}
+      <motion.main
+        className="min-h-[100svh]"
+        style={{
+          paddingLeft: padX,
+          paddingRight: padX,
+          letterSpacing,
+          lineHeight,
+        }}
+      >
+        <HeroSection />
+        <JourneyPath />
+        <GardenSection />
+
+        <footer className="bg-black/90 text-white/70">
+          <div className="mx-auto max-w-6xl px-0 py-14">
+            <div className="flex flex-wrap items-end justify-between gap-8">
+              <div>
+                <div className="text-xs tracking-[0.22em] text-white/60">
+                  مآل
+                </div>
+                <div className="mt-3 text-lg font-semibold tracking-[-0.02em] text-white">
+                  مآل
+                </div>
+                <div className="mt-2 font-en text-sm tracking-[0.16em] text-white/55">
+                  Ma&apos;al
+                </div>
+                <div className="mt-2 text-sm text-white/60">
+                  المدينة المنوّرة  • مسيرٌ بطيء
+                </div>
+              </div>
+              <div className="text-xs tracking-[0.22em] text-white/55">
+                الانقباض ← الانفراج ← الازدهار
+              </div>
+            </div>
+          </div>
+        </footer>
+      </motion.main>
+    </motion.div>
   );
 }
