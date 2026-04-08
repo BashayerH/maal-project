@@ -1,18 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import dynamic from "next/dynamic";
 import { useRef } from "react";
+import { GardenSection } from "@/components/GardenSection";
 import { HeroSection } from "@/components/HeroSection";
-
-const JourneyPath = dynamic(
-  () => import("@/components/JourneyPath").then((m) => m.JourneyPath),
-  { loading: () => <div className="min-h-[40svh]" /> },
-);
-const GardenSection = dynamic(
-  () => import("@/components/GardenSection").then((m) => m.GardenSection),
-  { loading: () => <div className="min-h-[40svh]" /> },
-);
+import { JourneyPath } from "@/components/JourneyPath";
 
 export default function Home() {
   const pageRef = useRef<HTMLDivElement | null>(null);

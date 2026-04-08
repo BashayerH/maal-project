@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Step = 1 | 2 | 3 | "done";
 
@@ -62,15 +62,10 @@ export function BookingSystem() {
     return ["09:30", "11:00", "12:30", "14:00", "15:30", "17:00", "18:30"];
   }, []);
 
-  const defaultDate = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 2);
-    return isoDate(d);
-  }, []);
-
   const [step, setStep] = useState<Step>(1);
 
-  const [dateISO, setDateISO] = useState<string>(defaultDate);
+  /** Empty until mount: avoids SSR vs browser timezone / midnight mismatch. */
+  const [dateISO, setDateISO] = useState<string>("");
   const [time, setTime] = useState<string>(timeSlots[2]);
   const [visitors, setVisitors] = useState<number>(1);
   const [fullName, setFullName] = useState<string>("");
@@ -83,11 +78,17 @@ export function BookingSystem() {
     ticketText: string;
   } | null>(null);
 
-  const timezone = useMemo(() => {
+  /** Stable default for SSR + first client paint; real TZ after mount only. */
+  const [timezone, setTimezone] = useState("Asia/Riyadh");
+
+  useEffect(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 2);
+    setDateISO(isoDate(d));
     try {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Riyadh";
+      setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Riyadh");
     } catch {
-      return "Asia/Riyadh";
+      setTimezone("Asia/Riyadh");
     }
   }, []);
 
