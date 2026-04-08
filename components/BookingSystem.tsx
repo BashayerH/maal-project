@@ -40,7 +40,7 @@ export function BookingSystem() {
               ميثاق الحجز في مآل
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]/70">
-              واجهة هادئة بلا ازدحام — تحفظ الإحساس وتبقى واضحة على كل الشاشات.
+              واجهة هادئة  — تحفظ الإحساس وتبقى واضحة على كل الشاشات.
             </p>
           </div>
           <div className="rounded-full border border-[color-mix(in_srgb,var(--color-stone)_40%,transparent)] bg-white/80 px-4 py-2 text-xs text-[var(--color-forest)]/75">

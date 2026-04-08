@@ -15,28 +15,28 @@ const chapters: Chapter[] = [
     title: "التخطيط",
     subtitle: "من الفكرة إلى المسار",
     body: "نبدأ برسم الإيقاع: كيف يشعر الجسد قبل أن تفهم العين؟ أين تبدأ السكينة؟",
-    images: ["/m1.png", "/m7.jpeg", "/m8.jpeg"],
+    images: ["/m4.jpeg", "/m11.jpeg", "/m12.jpeg"],
   },
   {
     no: "02",
     title: "التقنية",
-    subtitle: "عمارة عصبية، بلمسات خفيفة",
+    subtitle: "حكاية تراث، بلمسات عصرية",
     body: "نقلّل الضجيج البصري ونمنح المحتوى مسارًا واحدًا. الحركة تكون عند الحاجة فقط—بوضوح لا بقوة.",
-    images: ["/m2.png", "/m9.jpeg"],
+    images: ["/m2.png", "/m13.png"],
   },
   {
     no: "03",
     title: "التجربة",
-    subtitle: "من التخفيض إلى الاتساع",
+    subtitle: "من الضيق إلى الاتساع",
     body: "تدخل التجربة بهدوء: تضييقٌ يُنقّي الانتباه، ثم اتساعٌ يفتح النفس. كل خطوة تقول: “تابع”.",
-    images: ["/m3.png", "/m4.jpeg", "/m10.jpeg"],
+    images: ["/m9.jpeg", "/m7.jpeg", "/m10.jpeg"],
   },
   {
     no: "04",
     title: "الحجز",
     subtitle: "ميثاق دخولٍ رقمي",
     body: "عند جاهزيتك، نُنهي الميثاق بسرعة: تاريخ + تفاصيل قليلة + إتمام تجريبي. تذكرتك النصية تظهر فورًا.",
-    images: ["/m5.jpeg", "/m6.jpeg"],
+    images: ["/m8.jpeg"],
   },
 ];
 
@@ -77,7 +77,7 @@ export function StoryTripSection() {
             return (
               <FadeInSection key={c.no} className="relative z-10 w-full">
                 <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-                  
+
                   {/* Timeline Dot (lg screens) */}
                   <div className="absolute left-[2.25rem] lg:left-1/2 top-[10%] lg:top-1/2 hidden sm:flex -translate-x-1/2 -translate-y-1/2 items-center justify-center w-6 h-6 rounded-full bg-[var(--color-sand)] border-[3px] border-[var(--color-forest)] shadow-[0_0_0_4px_var(--color-sand)] z-20">
                   </div>
@@ -87,7 +87,7 @@ export function StoryTripSection() {
                     <div className="mb-6 flex items-center justify-center w-14 h-14 rounded-2xl bg-[var(--color-forest)] text-[var(--color-sand)] shadow-lg shadow-[var(--color-forest)]/20">
                       <span className="font-heading text-2xl font-bold">{c.no}</span>
                     </div>
-                    
+
                     <h3 className="font-heading text-4xl sm:text-4xl text-[var(--color-forest)] mb-3">
                       {c.title}
                     </h3>
@@ -118,7 +118,7 @@ export function StoryTripSection() {
                           <Image src={c.images[0]} alt={c.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
                         </div>
                       )}
-                      
+
                       {c.images.length === 2 && (
                         <>
                           <div className="relative w-1/2 h-[90%] mt-[10%] rounded-[2rem] overflow-hidden shadow-2xl">
@@ -129,7 +129,7 @@ export function StoryTripSection() {
                           </div>
                         </>
                       )}
-                      
+
                       {c.images.length === 3 && (
                         <>
                           <div className="relative w-[55%] h-[95%] mt-[5%] rounded-[2rem] overflow-hidden shadow-2xl">
