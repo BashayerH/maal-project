@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Kufi_Arabic } from "next/font/google";
+import { Amiri, IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+const ibmArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-ibm-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const kufi = Noto_Kufi_Arabic({
-  variable: "--font-kufi",
+const amiri = Amiri({
+  variable: "--font-amiri",
   subsets: ["arabic"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "مآل | Ma'al",
   description:
-    "A minimalist neuro-architectural journey in Madinah — compression to relief.",
+    "عمارة عصبية وتراث — مسارٌ معماريّ يعيد ضبط الإحساس بالمكان بين الانقباض والانشراح.",
 };
 
 export default function RootLayout({
@@ -28,9 +31,9 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${inter.variable} ${kufi.variable} h-full antialiased`}
+      className={`${ibmArabic.variable} ${amiri.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-ar">{children}</body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

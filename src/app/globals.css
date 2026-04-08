@@ -1,42 +1,96 @@
 @import "tailwindcss";
 
+/* مآل — Neuro-Architecture & Heritage palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --fortress-ink: #0b0d10;
-  --fortress-stone: #0f1116;
-  --clay: #2a2018;
-  --gold: #d6b15d;
-  --garden: #f6f7f8;
-  --garden-green: #8abf9d;
+  --color-earth: #8c5e45;
+  --color-sand: #e5d9c3;
+  --color-teal: #76b9a8;
+  --color-forest: #005d4b;
+  --color-stone: #a6a6a6;
+
+  --background: var(--color-sand);
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-ar: var(--font-kufi);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-ar), ui-sans-serif, system-ui, -apple-system, Segoe UI,
-    Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --color-maal-earth: var(--color-earth);
+  --color-maal-sand: var(--color-sand);
+  --color-maal-teal: var(--color-teal);
+  --color-maal-forest: var(--color-forest);
+  --color-maal-stone: var(--color-stone);
+  --font-sans: var(--font-ibm-arabic);
+  --font-ar: var(--font-ibm-arabic);
+  --font-display: var(--font-amiri);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Subtle film grain for “material” depth */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ar), ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Roboto, Helvetica, Arial;
+}
+
+.font-heading,
+h1,
+h2,
+h3 {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  color: var(--color-forest);
+}
+
+.font-en {
+  font-family: var(--font-sans), ui-sans-serif, system-ui;
+}
+
+/* Organic textures (lightweight CSS only) */
+.texture-stone {
+  background-color: var(--color-sand);
+  background-image: repeating-linear-gradient(
+    118deg,
+    color-mix(in srgb, var(--color-stone) 22%, transparent) 0 1px,
+    transparent 1px 12px
+  );
+}
+
+.texture-wood {
+  background-color: color-mix(in srgb, var(--color-earth) 18%, var(--color-sand));
+  background-image: repeating-linear-gradient(
+    92deg,
+    color-mix(in srgb, var(--color-earth) 14%, transparent) 0 1px,
+    transparent 1px 20px
+  );
+}
+
+.texture-sand-wash {
+  background: radial-gradient(
+      1200px 700px at 50% 0%,
+      color-mix(in srgb, var(--color-teal) 12%, transparent),
+      transparent 55%
+    ),
+    var(--color-sand);
+}
+
+.hero-overlay {
+  background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-forest) 55%, transparent) 0%,
+      color-mix(in srgb, var(--color-earth) 35%, transparent) 45%,
+      color-mix(in srgb, var(--color-forest) 75%, transparent) 100%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-forest) 25%, transparent),
+      transparent 50%
+    );
+}
+
 .grain {
   position: relative;
 }
@@ -45,17 +99,376 @@ html {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.85'/%3E%3C/svg%3E");
 }
 
-/* Utility for Arabic display blocks */
-.font-ar {
-  font-family: var(--font-ar), ui-sans-serif, system-ui;
-  letter-spacing: 0.01em;
+.neuro-section {
+  padding-inline: clamp(1.25rem, 4vw, 3rem);
+  padding-block: clamp(3rem, 8vw, 5rem);
 }
 
-.font-en {
-  font-family: var(--font-sans), ui-sans-serif, system-ui;
+/* =========================================
+   SECTION 1: THE GENESIS #story
+   ========================================= */
+#story {
+  height: 100vh;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-sand);
+  text-align: center;
+  position: relative;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/m1.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  transform: scale(1);
+  transition: transform 15s ease-out;
+}
+
+.hero-bg.active {
+  transform: scale(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 93, 75, 0.3) 0%, rgba(107, 79, 58, 0.6) 100%);
+  z-index: -1;
+}
+
+.hero-content {
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.poetic-text {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.4;
+  color: var(--color-sand);
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.timeline {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 0;
+  background-color: var(--color-teal);
+  transition: height 1.5s ease-out;
+}
+
+.timeline.active::before {
+  height: 100%;
+}
+
+.timeline-item {
+  position: relative;
+  width: 50%;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+
+.timeline-item:nth-child(odd) {
+  left: 0;
+  text-align: right;
+  padding-right: 40px;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.timeline.active .timeline-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline.active .timeline-item:nth-child(1) {
+  transition-delay: 0.5s;
+}
+
+.timeline.active .timeline-item:nth-child(2) {
+  transition-delay: 0.8s;
+}
+
+.timeline-item h3 {
+  color: var(--color-sand);
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.timeline-item p {
+  color: rgba(229, 217, 195, 0.8);
+  font-size: 1.1rem;
+}
+
+/* =========================================
+   SECTION 2: THE EXPERIENCE #experience
+   ========================================= */
+#experience {
+  background-color: #ffffff;
+  padding-top: 100px;
+}
+
+.experience-header {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 800px;
+}
+
+.experience-header h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.experience-header p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.masonry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.experience-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.experience-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-wrapper {
+  height: 250px;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-smooth);
+}
+
+.experience-card:hover .card-img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 30px;
+}
+
+.card-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.card-content p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: var(--color-earth);
+}
+
+.psych-impact {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.impact-badge {
+  background-color: rgba(118, 185, 168, 0.1);
+  color: var(--color-forest);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* =========================================
+   SECTION 3: THE INNOVATION #tech
+   ========================================= */
+#tech {
+  background: linear-gradient(135deg, rgba(229, 217, 195, 0.2) 0%, rgba(118, 185, 168, 0.1) 100%);
+}
+
+.tech-header {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 800px;
+}
+
+.tech-header h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.tech-header p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pillar-card {
+  text-align: center;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.pillar-card:hover {
+  background: white;
+  transform: translateY(-5px);
+}
+
+.pillar-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: rgba(118, 185, 168, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-teal);
+}
+
+.pillar-icon svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+
+.pillar-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.pillar-card p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* =========================================
+   SECTION 4: THE PATH TO ENTRY #tickets
+   ========================================= */
+#tickets {
+  background-color: var(--color-sand);
+  color: var(--color-forest);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ticket-container {
+  background: white;
+  padding: 60px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 93, 75, 0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+.ticket-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.ticket-container p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: var(--color-earth);
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: var(--color-forest);
+  color: var(--color-sand);
+  padding: 18px 40px;
+  font-size: 1.3rem;
+  font-family: var(--font-heading);
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 15px rgba(0, 93, 75, 0.2);
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--color-sand), 0 8px 25px rgba(0, 93, 75, 0.4);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  background-color: var(--color-forest);
+  color: var(--color-sand);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer p {
+  opacity: 0.8;
+  font-size: 0.9rem;
 }
