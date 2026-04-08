@@ -43,89 +43,111 @@ const chapters: Chapter[] = [
 export function StoryTripSection() {
   return (
     <section
-      className="relative overflow-hidden py-20"
+      className="relative overflow-hidden py-32 bg-[var(--color-sand)]"
       aria-label="رحلة مآل القصصية"
     >
-      <div className="texture-wood pointer-events-none absolute inset-0 opacity-20" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-forest)_18%,transparent),transparent_70%)]" />
+      {/* Dynamic Backgrounds */}
+      <div className="texture-wood pointer-events-none absolute inset-0 opacity-[0.03]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,color-mix(in_srgb,var(--color-teal)_15%,transparent),transparent_60%)]" />
 
-      <div className="relative mx-auto max-w-6xl px-4">
-        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-24 flex flex-col items-center text-center">
           <FadeInSection>
-            <p className="text-xs tracking-[0.24em] text-[var(--color-forest)]/70">
-              رحلة مآل
-            </p>
-            <h2 className="font-heading text-3xl sm:text-4xl">
+            <div className="inline-flex items-center gap-3 rounded-full border border-[var(--color-forest)]/20 bg-[var(--color-forest)]/5 px-4 py-2 mb-6">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-earth)]"></span>
+              <p className="text-xs font-bold tracking-[0.2em] text-[var(--color-forest)] uppercase">
+                رحلة مآل
+              </p>
+            </div>
+            <h2 className="mt-4 font-heading text-4xl sm:text-5xl lg:text-5xl text-[var(--color-forest)]">
               من التخطيط إلى التجربة… ثم الحجز
             </h2>
-          </FadeInSection>
-
-          <FadeInSection className="max-w-xl">
-            <p className="mt-2 text-sm leading-relaxed text-[var(--foreground)]/70">
-              لا نُخبرك فقط—بل نُعيد ترتيب إحساسك بالمكان. نصوصٌ واضحة وصورٌ
-              تفتح التباين، مع واجهة هادئة تحترم وقتك.
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[var(--foreground)]/80">
+              لا نُخبرك فقط—بل نُعيد ترتيب إحساسك بالمكان. نصوصٌ واضحة وصورٌ تفتح التباين، مع واجهة هادئة تحترم وقتك.
             </p>
           </FadeInSection>
         </div>
 
-        <div className="relative grid gap-8 lg:grid-cols-2">
+        <div className="relative flex flex-col gap-32 lg:gap-40">
+          {/* Vertical Timeline Line */}
+          <div className="absolute left-[2.25rem] lg:left-1/2 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-[var(--color-forest)]/30 to-transparent hidden sm:block" />
+
           {chapters.map((c, idx) => {
-            const isRight = idx % 2 === 1;
+            const isRight = idx % 2 === 1; // Used for horizontal layout reversing
             return (
-              <FadeInSection key={c.no} className="neuro-section p-0">
-                <div className="relative overflow-hidden rounded-[2.5rem] border border-[color-mix(in_srgb,var(--color-stone)_45%,transparent)] bg-white/70">
-                  <div className="absolute inset-0 grid grid-cols-2 gap-1 p-1 sm:grid-cols-3">
-                    {c.images.map((src) => (
-                      <div
-                        key={src}
-                        className="relative overflow-hidden rounded-[1.35rem]"
-                      >
-                        <Image
-                          src={src}
-                          alt={c.title}
-                          fill
-                          loading="lazy"
-                          sizes="(max-width:1024px) 92vw, 360px"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/28" />
-                      </div>
-                    ))}
+              <FadeInSection key={c.no} className="relative z-10 w-full">
+                <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+                  
+                  {/* Timeline Dot (lg screens) */}
+                  <div className="absolute left-[2.25rem] lg:left-1/2 top-[10%] lg:top-1/2 hidden sm:flex -translate-x-1/2 -translate-y-1/2 items-center justify-center w-6 h-6 rounded-full bg-[var(--color-sand)] border-[3px] border-[var(--color-forest)] shadow-[0_0_0_4px_var(--color-sand)] z-20">
                   </div>
 
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/5 to-black/65" />
-                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,93,75,0.18),transparent_65%)]" />
-
-                  <div className={["relative p-6 sm:p-8", isRight ? "text-right" : "text-left"].join(" ")}>
-                    <div className="flex items-center justify-between gap-6">
-                      <div className="flex items-center gap-3">
-                        <span className="grid h-10 w-10 place-items-center rounded-full bg-[var(--color-forest)] text-[var(--color-sand)] shadow-sm">
-                          {c.no}
-                        </span>
-                        <h3 className="font-heading text-xl sm:text-2xl text-white">
-                          {c.title}
-                        </h3>
-                      </div>
+                  {/* Text Details */}
+                  <div className={`order-2 ${isRight ? "lg:order-2 lg:pr-16" : "lg:order-1 lg:pl-16"} flex flex-col text-start`}>
+                    <div className="mb-6 flex items-center justify-center w-14 h-14 rounded-2xl bg-[var(--color-forest)] text-[var(--color-sand)] shadow-lg shadow-[var(--color-forest)]/20">
+                      <span className="font-heading text-2xl font-bold">{c.no}</span>
                     </div>
-
-                    <p className="mt-2 text-xs tracking-[0.22em] text-[var(--color-sand)]/80">
+                    
+                    <h3 className="font-heading text-4xl sm:text-4xl text-[var(--color-forest)] mb-3">
+                      {c.title}
+                    </h3>
+                    <h4 className="text-xl font-medium text-[var(--color-earth)] mb-6">
                       {c.subtitle}
-                    </p>
-                    <p className="mt-4 text-sm leading-relaxed text-white/80">
+                    </h4>
+                    <p className="text-lg leading-relaxed text-[var(--foreground)]/80 max-w-lg">
                       {c.body}
                     </p>
 
                     {c.title === "الحجز" && (
-                      <div className="mt-6">
+                      <div className="mt-10">
                         <a
                           href="#booking"
-                          className="inline-flex items-center justify-center rounded-full bg-[var(--color-forest)] px-6 py-3 text-sm font-semibold text-[var(--color-sand)] transition hover:brightness-110"
+                          className="inline-flex w-fit items-center justify-center rounded-full bg-[var(--color-forest)] px-8 py-4 text-base font-bold text-[var(--color-sand)] transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[var(--color-forest)]/30"
                         >
                           مستعد لعيش وتجربة المسار
                         </a>
                       </div>
                     )}
                   </div>
+
+                  {/* Collage Images */}
+                  <div className={`order-1 ${isRight ? "lg:order-1" : "lg:order-2"}`}>
+                    <div className="relative flex gap-4 h-[350px] sm:h-[450px] lg:h-[500px]">
+                      {c.images.length === 1 && (
+                        <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-2xl">
+                          <Image src={c.images[0]} alt={c.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                        </div>
+                      )}
+                      
+                      {c.images.length === 2 && (
+                        <>
+                          <div className="relative w-1/2 h-[90%] mt-[10%] rounded-[2rem] overflow-hidden shadow-2xl">
+                            <Image src={c.images[0]} alt="" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                          </div>
+                          <div className="relative w-1/2 h-[90%] mb-[10%] rounded-[2rem] overflow-hidden shadow-2xl">
+                            <Image src={c.images[1]} alt="" fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                          </div>
+                        </>
+                      )}
+                      
+                      {c.images.length === 3 && (
+                        <>
+                          <div className="relative w-[55%] h-[95%] mt-[5%] rounded-[2rem] overflow-hidden shadow-2xl">
+                            <Image src={c.images[0]} alt="" fill sizes="(max-width: 1024px) 60vw, 30vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                          </div>
+                          <div className="w-[45%] flex flex-col gap-4">
+                            <div className="relative h-[48%] rounded-[2rem] overflow-hidden shadow-2xl">
+                              <Image src={c.images[1]} alt="" fill sizes="(max-width: 1024px) 40vw, 20vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                            </div>
+                            <div className="relative h-[48%] rounded-[2rem] overflow-hidden shadow-2xl">
+                              <Image src={c.images[2]} alt="" fill sizes="(max-width: 1024px) 40vw, 20vw" className="object-cover transition-transform duration-1000 hover:scale-105" />
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
                 </div>
               </FadeInSection>
             );
@@ -135,4 +157,5 @@ export function StoryTripSection() {
     </section>
   );
 }
+
 
